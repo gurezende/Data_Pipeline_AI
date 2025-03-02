@@ -1,0 +1,11 @@
+[project]
+name = "pipeline-ai"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12.1"
+dependencies = [
+    "pandas>=2.2.3",
+    "sqlalchemy>=2.0.38",
+    "streamlit>=1.42.2",
+]
