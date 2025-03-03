@@ -1,3 +1,5 @@
+# This script is to parse the HTML file and extract flight information
+
 # Imports 
 from bs4 import BeautifulSoup
 import numpy as np

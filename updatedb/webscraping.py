@@ -1,6 +1,4 @@
-'''
-Script to open the airline website, browse the flights and get HTML file for parsing.
-'''
+# ''' Script to open the airline website, browse the flights and get HTML file for parsing.'''
 
 # Imports
 from selenium import webdriver

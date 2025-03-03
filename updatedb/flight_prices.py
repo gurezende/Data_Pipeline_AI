@@ -1,7 +1,7 @@
-'''Application: 
-This app is intended to retrieve fligh tickets prices from the following flight companies and add to a postgres DB.
-+ Azul Airlines
-'''
+# Web Application: 
+# This app is intended to retrieve fligh tickets prices from the following flight companies and add to a postgres DB.
+# Azul Airlines
+
 
 # Import functions
 from updatedb import update_db

@@ -1,3 +1,5 @@
+# This script is to update the DB with new flight prices
+
 # Imports
 from webscraping import get_flights, get_date
 from parser import *

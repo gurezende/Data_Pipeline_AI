@@ -1,4 +1,4 @@
-'''This script is to load the flights data to a SQLite Database.'''
+# '''This script is to load the flights data to a SQLite Database.'''
 
 # Imports
 import pandas as pd
