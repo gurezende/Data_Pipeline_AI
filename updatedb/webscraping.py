@@ -74,7 +74,7 @@ def get_flights(depart, arrivl, date_depart='today', days_range=10):
     # Complete Origin Search Box
     origin = driver.find_element(By.CSS_SELECTOR, '#Origem1')
     origin.send_keys(depart)
-    time.sleep(5)
+    time.sleep(3)
     origin.send_keys(Keys.RETURN)
 
     # Complete Destination Search Box
@@ -106,7 +106,7 @@ def get_flights(depart, arrivl, date_depart='today', days_range=10):
     time.sleep(2)
     driver.find_element(By.CSS_SELECTOR, '[data-testid="search-box-hotel-date-picker-primary-button"]').click()
 
-    time.sleep(25)
+    time.sleep(10)
 
     # Get page HTML
     html_doc = driver.page_source
