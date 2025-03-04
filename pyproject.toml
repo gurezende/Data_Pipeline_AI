@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12.1"
 dependencies = [
     "beautifulsoup4>=4.13.3",
+    "chromadb>=0.6.3",
     "currencyconverter>=0.18.3",
     "dbt-postgres>=1.9.0",
     "dotenv>=0.9.9",
