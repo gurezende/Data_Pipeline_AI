@@ -1,0 +1,54 @@
+
+version: 2
+
+sources:
+  - name: flights_raw
+    schema: public
+    tables:
+      - name: flight_prices
+        description: "Raw flights data from Postgres"
+        columns:
+        - name: id
+          description: "The primary key for this table"
+          tests:
+            - not_null
+        - name: dt
+          description: "The date of the flight"
+          tests:
+            - not_null
+        - name: depart_city
+          description: "Destination airport"
+          tests:
+            - not_null
+        - name: depart_time
+          description: "Departure time"
+          tests:
+            - not_null
+        - name: city_arrival
+          description: "City of arrival"
+          tests:
+            - not_null
+        - name: time_arrival
+          description: "Time of arrival"
+          tests:
+            - not_null
+        - name: flight_numbers
+          description: "Flight number"
+          tests:
+            - not_null
+        - name: n_stops
+          description: "Number of stops"
+          tests:
+            - not_null
+        - name: flight_lengths
+          description: "Length of the flight"
+          tests:
+            - not_null
+        - name: ticket_prices
+          description: "The ticket price"
+          tests:
+            - not_null
+        - name: days_before_flight
+          description: "Number of days before the flight the search ocurred"
+          tests:
+            - not_null

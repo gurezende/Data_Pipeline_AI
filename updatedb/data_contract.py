@@ -1,3 +1,5 @@
+# Script to validate the data with pandera
+
 import streamlit as st
 from datetime import datetime
 from pandera import Column, Check, DataFrameSchema
@@ -39,6 +41,7 @@ def validate_data(data):# Validate data
         st.write(":heavy_check_mark: DataFrame validated SUCCESSFULLY!")
         return True
     except SchemaError as e:
-        st.write(f":x: DataFrame validation FAILED: {e}")
+        st.error(f"DataFrame validation FAILED: {e}",
+                 icon=":x:")
         return False
     

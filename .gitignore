@@ -6,9 +6,11 @@ dist/
 wheels/
 *.egg-info
 
+
 # Virtual environments
 .venv
 .env
 
 # Folder
 updatedb/load_old_from_sqlite.py
+updatedb/__pycache__/

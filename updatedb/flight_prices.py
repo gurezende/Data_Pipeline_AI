@@ -47,4 +47,4 @@ with st.sidebar:
     if st.button('Update DB'):
         for d in days_ahead:
             update_db(d, origin_cd, destin_cd)
-        st.write('Database updated!')
+        st.success('Database updated!')
