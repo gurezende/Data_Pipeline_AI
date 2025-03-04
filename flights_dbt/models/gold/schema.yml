@@ -1,0 +1,51 @@
+models:
+  - name: gold_flights_byDay
+    description: "Average ticket price of flights by day"
+    columns:
+      - name: depart_city
+        description: "Departure city"    
+
+      - name: daynumber
+        description: "Day of the week"
+
+      - name: average_ticket_price
+        description: "Average ticket price"
+
+  - name: gold_flights_byWeekDay
+    description: "Average ticket price of flights by weekday"
+    columns:
+      - name: depart_city
+        description: "Departure city"    
+
+      - name: wkday_name
+        description: "Weekday name"
+
+      - name: average_ticket_price
+        description: "Average ticket price"
+
+  - name: gold_flights_byMonth
+    description: "Average ticket price of flights by month"
+    columns:
+      - name: depart_city
+        description: "Departure city"    
+
+      - name: mth
+        description: "Month of the year"
+
+      - name: average_ticket_price
+        description: "Average ticket price"
+
+  - name: gold_flights_byPopRoutes
+    description: "Average ticket price of flights by popular routes"
+    columns:
+      - name: flight_numbers
+        description: "Flight numbers"
+
+      - name: depart_city
+        description: "Departure city"
+
+      - name: depart_time
+        description: "Departure time"
+
+      - name: number_of_flights
+        description: "Number of flights. More popular routes have more flights"
