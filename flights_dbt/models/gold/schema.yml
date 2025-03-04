@@ -49,3 +49,15 @@ models:
 
       - name: number_of_flights
         description: "Number of flights. More popular routes have more flights"
+
+  - name: gold_flights_byDaysAhead
+    description: "Average ticket price of flights by days before departure"
+    columns:
+      - name: depart_city
+        description: "Departure city"    
+
+      - name: days_before_flight
+        description: "How many Days before flight is the web search"
+
+      - name: average_ticket_price
+        description: "Average ticket price"
