@@ -1,12 +1,12 @@
-# '''This script is to load the flights data to a SQLite Database.'''
+# '''This script is to load the flights data to a Postgres Database.'''
 
 # Imports
 import pandas as pd
-from data_contract import validate_data
+from updatedb.data_contract import validate_data
 import streamlit as st
 
 # SQLAlchemy imports
-from database import engine #import engine
+from updatedb.database import engine #import engine
 
 def load_to_sql(flight_date:str, file_path = './data/flights.csv'):
   '''

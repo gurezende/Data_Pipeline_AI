@@ -1,9 +1,9 @@
 # This script is to update the DB with new flight prices
 
 # Imports
-from webscraping import get_flights, get_date
-from parser import *
-from load_sql import load_to_sql
+from updatedb.webscraping import get_flights, get_date
+from updatedb.parser import *
+from updatedb.load_sql import load_to_sql
 import streamlit as st
 import pandas as pd
 
