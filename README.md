@@ -7,6 +7,6 @@
 
 <table>
   <tr>
-    <td width="100%"><img src="img/RAG-FlightDB AI Assistant.mp4" alt="App Image"></td>
+    <td width="100%"><img src="img/RAG-FlightDB.gif" alt="App Image"></td>
   </tr>
 </table>
