@@ -5,19 +5,19 @@
 
 ## Index
 
-[Data Pipeline](#data-pipeline)
-  [Purpose](#purpose)
-  [Requirements](#requirements)
-  [Functionality](#functionality)
-[Web Application: AI Assistant](#web-application-ai-assistant)
-  [App](#app)
-  [Functionality](#functionality-1)
-  [Sidebar: Update DB](#sidebar-update-db)
-  [Main Page: Querying the Database](#main-page-querying-the-database)
-[Notes](#notes)
-[Demonstration](#demonstration)
-[About](#about)
-[License](#license)
+[Data Pipeline](#data-pipeline)<br>
+  [Purpose](#purpose)<br>
+  [Requirements](#requirements)<br>
+  [Functionality](#functionality)<br>
+[Web Application: AI Assistant](#web-application-ai-assistant)<br>
+  [App](#app)<br>
+  [Functionality](#functionality-1)<br>
+  [Sidebar: Update DB](#sidebar-update-db)<br>
+  [Main Page: Querying the Database](#main-page-querying-the-database)<br>
+[Notes](#notes)<br>
+[Demonstration](#demonstration)<br>
+[About](#about)<br>
+[License](#license)<br>
 
 
 
