@@ -20,21 +20,7 @@
 [License](#license)<br>
 
 
-
-## Data Pipeline
-
-This part of the project automates the process of fetching, parsing, and loading flight price data into a database. It utilizes web scraping, HTML parsing, data validation, and database loading.
-
-### Purpose
-
-* Fetch flight price data for a specified route.
-* Parse the HTML content of the scraped flight data.
-* Extract relevant flight information, including departure/arrival details, flight numbers, and ticket prices.
-* Validate the extracted data with Pandera.
-* Load the validated data into a Postgres SQL database.
-* Trigger dbt (data build tool) models to transform and analyze the loaded data.
-
-### Requirements
+## Project Requirements
 
 * Python 3.12.1
 * `beautifulsoup4` >=4.13.3
@@ -56,7 +42,18 @@ This part of the project automates the process of fetching, parsing, and loading
 * `torch` >=2.6.0
 * `tqdm` >=4.67.1
 
+## Data Pipeline
 
+This part of the project automates the process of fetching, parsing, and loading flight price data into a database. It utilizes web scraping, HTML parsing, data validation, and database loading.
+
+### Purpose
+
+* Fetch flight price data for a specified route.
+* Parse the HTML content of the scraped flight data.
+* Extract relevant flight information, including departure/arrival details, flight numbers, and ticket prices.
+* Validate the extracted data with Pandera.
+* Load the validated data into a Postgres SQL database.
+* Trigger dbt (data build tool) models to transform and analyze the loaded data.
 
 ### Functionality
 
@@ -173,3 +170,8 @@ This project was developed by Gustavo R Santos.<br>
 
 ## License
 Project licensed under MIT License.
+
+## Next Steps
+
+Docker
+Deploy
