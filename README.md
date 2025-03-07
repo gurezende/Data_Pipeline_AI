@@ -7,6 +7,6 @@
 
 <table>
   <tr>
-    <td width="100%"><img src="img/RAG-FlightsDB.gif" alt="App Image"></td>
+    <td width="100%"><img src="img/RAG_FlightsDB.gif" alt="App Image"></td>
   </tr>
 </table>
