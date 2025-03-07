@@ -14,7 +14,7 @@ select
 	city_arrival,
 	LEFT(time_arrival,5) as time_arrival, -- strip values from  time_arrival
 	flight_numbers,
-	n_stops,
+	n_stops AS connex,
 	case 
 		WHEN n_stops = 'Direto' THEN 0
 		ELSE cast(LEFT(n_stops, 1) as INTEGER)

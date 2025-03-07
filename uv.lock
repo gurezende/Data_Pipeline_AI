@@ -2324,6 +2324,7 @@ dependencies = [
     { name = "sentence-transformers" },
     { name = "sqlalchemy" },
     { name = "streamlit" },
+    { name = "torch" },
     { name = "tqdm" },
 ]
 
@@ -2351,6 +2352,7 @@ requires-dist = [
     { name = "sentence-transformers", specifier = ">=3.4.1" },
     { name = "sqlalchemy", specifier = ">=2.0.38" },
     { name = "streamlit", specifier = ">=1.42.2" },
+    { name = "torch", specifier = ">=2.6.0" },
     { name = "tqdm", specifier = ">=4.67.1" },
 ]
 

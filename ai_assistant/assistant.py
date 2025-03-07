@@ -43,27 +43,16 @@ def groq_response(query, agent_type):
     retriever = vector_db.as_retriever()
     result = vector_db.similarity_search(query, k=30)
     # result = retriever.invoke(query,k=30)
-    
-    # Define the context for both agent types
-    if agent_type == "Flight Assistant":
-        context = (
-            f"Today is {current_date}. You are a Flight Booking Assistant. "
-            f"Use the data retrieved from the retriever to answer the user's question: {result} " 
-            f"You must answer the query in a direct and objective way, without speculation.Provide flight information and prices."
-            "Don't search for other information that is not in the retrieved data."
-             "If you don't know the answer, say 'I don't know'"
-        )
-        # imagem = "agente_comercial.png"
-    elif agent_type == "Analyst":
-        context = (
+
+    context = (
             f"Use the data retrieved from the retriever to answer the user's question: {result} "
-            f"You must answer the query analyzing the data and providing insights and suggesting marketing strategies."
-            "Start the Marketing Strategy with the icon '* Marketing Strategy:'. "
+            f"You must answer the query analyzing the data and providing insights and suggesting ways to save money when buying a flight."
+            "If there is a suggestion to save money, say 'Save Money:'. "
             "Be as brief as possible. Don't use information that is not in the data."
             "If you don't know the answer, say 'I don't know'"
         )
         # imagem = "laennder.png"
-    
+
     chat_completion = client.chat.completions.create(
         messages=[
             {

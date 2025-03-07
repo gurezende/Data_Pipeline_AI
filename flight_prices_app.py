@@ -15,6 +15,10 @@ from updatedb.data_contract import Schema
 from pandera.errors import SchemaError
 from langgraph.graph import StateGraph, START
 
+# bugfix for this problem
+# Tried to instantiate class 'path.path’, but it does not exist! Ensure that it is registered via torch::class
+import torch
+torch.classes.__path__ = []
 
 # Get BRL to USD conversion rate
 from forex_converter import get_usd_rate
