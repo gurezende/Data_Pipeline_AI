@@ -5,6 +5,7 @@
 
 # Import functions
 from updatedb.updatedb import update_db
+from ai_assistant.assistant import groq_response
 from ai_assistant.assistant2 import SQLChain, State
 
 # Imports
@@ -57,31 +58,72 @@ with st.sidebar:
             update_db(d, origin_cd, destin_cd)
         st.success('Database updated!')
 
-#----------------------  SQL ASSISTANT  ----------------------
+
+#----------------------  MAIN PAGE  ----------------------
+
 # Page Title
-st.title(':airplane_departure: :small_blue_diamond: Flight Prices Assistant :small_blue_diamond: :bar_chart:')
-st.write('This app is intended to retrieve information from the Postgres DB with Flights using Natural Language Processing via LLM assistant.')
+st.subheader(":gray[Welcome to the Flights AI Assistant]")
 
-question = st.text_input('Ask a question',
-                         placeholder='What are the most popular flights and times')
+col1, _, _ = st.columns(3)
+# Select an AI Assistant
+with col1:
+    assistant = st.pills('Select an AI Assistant', 
+                            selection_mode='single',
+                            options=['SQL Assistant', 'Flight Analyst']) 
 
-# Instantiating SQLChain class
-sql_chain = SQLChain()
+st.divider()
 
-# Orchestrating with LangGraph
-# Compile our application into a single graph object. 
-# In this case, we are just connecting the three steps into a single sequence.
-graph_builder = StateGraph(State).add_sequence(
-    [sql_chain.write_query, sql_chain.execute_query, sql_chain.generate_answer]
-)
+#----------------------  SQL ASSISTANT  ----------------------
 
-# Take the graph that has been defined using the graph builder and turn it into an executable graph object for LLM
-graph_builder.add_edge(START, "write_query")
-graph = graph_builder.compile()
+# If SQL Assistant is selected
+if assistant == 'SQL Assistant':
+    # Page Title
+    st.title(':airplane_departure: :small_blue_diamond: FlightDB SQL Assistant :small_blue_diamond: :bar_chart:')
+    st.write('This app is intended to retrieve information from the Postgres DB with Flights using Natural Language Processing via LLM assistant.')
 
-# Run the graph
+    question = st.text_input('Ask a question',
+                             placeholder='What are the most popular flights and times')
 
-if st.button('Run'):
-    result = graph.invoke( {"question": question}, stream_mode="values" )
-    # st.write(result['query'])
-    st.write(result['answer'])
+    # Instantiating SQLChain class
+    sql_chain = SQLChain()
+
+    # Orchestrating with LangGraph
+    # Compile our application into a single graph object. 
+    # In this case, we are just connecting the three steps into a single sequence.
+    graph_builder = StateGraph(State).add_sequence(
+        [sql_chain.write_query, sql_chain.execute_query, sql_chain.generate_answer]
+    )
+
+    # Take the graph that has been defined using the graph builder and turn it into an executable graph object for LLM
+    graph_builder.add_edge(START, "write_query")
+    graph = graph_builder.compile()
+
+    # Run the graph
+
+    if st.button('Run'):
+        result = graph.invoke( {"question": question}, stream_mode="values" )
+        # Response
+        st.write(":green[-> Answer:]")
+        st.write(result['answer'])
+        # SQL Query generated
+        st.write(":gray[-> SQL Query generated:]")
+        st.code(result['query'], language='sql', wrap_lines=True) #sql_query
+
+
+
+#----------------------  FLIGHT ANALYST  ----------------------
+
+if assistant == 'Flight Analyst':
+    # Page Title
+    st.title(':airplane_departure: :small_blue_diamond: FlightDB Analyst :small_blue_diamond: :bar_chart:')
+    st.write('This app is intended to analyze the information from the Postgres DB with Flights by an LLM assistant.')
+
+    question = st.text_input('Ask a question',
+                             placeholder='What are the most popular flights and times')
+    
+    if st.button('Run'):
+        result = groq_response(query=question, 
+                  agent_type="Analyst")
+    
+        # Response
+        st.write(result)

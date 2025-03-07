@@ -7,7 +7,7 @@ from chromadb.utils import embedding_functions
 from datetime import datetime
 import numpy as np
 from dotenv import load_dotenv
-from utils import search_flights
+from ai_assistant.utils import search_flights
 from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 
@@ -41,7 +41,8 @@ def groq_response(query, agent_type):
 
     # Create a document retriever
     retriever = vector_db.as_retriever()
-    result = retriever.invoke(query,k=collection.count())
+    result = vector_db.similarity_search(query, k=30)
+    # result = retriever.invoke(query,k=30)
     
     # Define the context for both agent types
     if agent_type == "Flight Assistant":
@@ -56,8 +57,9 @@ def groq_response(query, agent_type):
     elif agent_type == "Analyst":
         context = (
             f"Use the data retrieved from the retriever to answer the user's question: {result} "
-            f"You must answer the query in a direct and objective way, analyzing the data and providing insights."
-            "Don't use information that is not in the data."
+            f"You must answer the query analyzing the data and providing insights and suggesting marketing strategies."
+            "Start the Marketing Strategy with the icon '* Marketing Strategy:'. "
+            "Be as brief as possible. Don't use information that is not in the data."
             "If you don't know the answer, say 'I don't know'"
         )
         # imagem = "laennder.png"
@@ -73,10 +75,4 @@ def groq_response(query, agent_type):
     )
     return chat_completion.choices[0].message.content.strip()
 
-
-# Example usage
-p = groq_response(query="What are 4 the most popular routes from MCO to VCP?", 
-              agent_type="Analyst")
-
-print(p)
 
