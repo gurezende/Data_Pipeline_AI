@@ -36,19 +36,20 @@ vector_db = Chroma(
 )
 
 # Groq Response Generator
-def groq_response(query, agent_type):
+def groq_response(query):
     current_date = datetime.now().strftime('%d/%m/%Y')
 
     # Create a document retriever
+    # result = vector_db.similarity_search(query, k=30)
     retriever = vector_db.as_retriever()
-    result = vector_db.similarity_search(query, k=30)
-    # result = retriever.invoke(query,k=30)
+    result = retriever.invoke(query,k=35)
 
     context = (
             f"Use the data retrieved from the retriever to answer the user's question: {result} "
+            "Dates are on the format dd/mm/yyyy"
             f"You must answer the query analyzing the data and providing insights and suggesting ways to save money when buying a flight."
             "If there is a suggestion to save money, say 'Save Money:'. "
-            "Be as brief as possible. Don't use information that is not in the data."
+            "Be as brief as possible. Use chunks and bullets structure. Don't use information that is not in the data."
             "If you don't know the answer, say 'I don't know'"
         )
         # imagem = "laennder.png"

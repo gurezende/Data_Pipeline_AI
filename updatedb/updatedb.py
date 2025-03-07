@@ -3,7 +3,7 @@
 # Imports
 from updatedb.webscraping import get_flights, get_date
 from updatedb.parser import *
-from updatedb.load_sql import load_to_sql
+from updatedb.load_sql import load_to_sql, run_dbt
 import streamlit as st
 import pandas as pd
 
@@ -16,13 +16,16 @@ def update_db(d, origin_cd='ZFF', destin_cd='VCP'):
     st.write(f':calendar: Searching flights on {search_date}') 
     
     # Get Flights page
-    get_flights(depart=origin_cd,
-                arrivl=destin_cd,
-                date_depart= search_date,
-                days_range= 5)
+    # get_flights(depart=origin_cd,
+    #             arrivl=destin_cd,
+    #             date_depart= search_date,
+    #             days_range= 5)
     
+    # Instantiate Parser
+    parser = Parser()
+
     # Open HTML file
-    soup = open_file('data/flights.html')
+    soup = parser.open_file('data/flights.html')
 
     # Find departures
     departures = soup.find_all("div", class_="flight-card__info left-container css-vjjku5")
@@ -42,27 +45,27 @@ def update_db(d, origin_cd='ZFF', destin_cd='VCP'):
 
     for element in departures:
         # Extract departure data
-        departure_city, departure_date, departure_time = departure_information(element=element)
+        departure_city, departure_date, departure_time = parser.departure_information(element=element)
         # Append to list
         depart_city.append(departure_city)
         dt.append(departure_date)
         depart_time.append(departure_time)
         
         # Extract arrival data
-        arrival_city, arrival_time = arrival_information(element=element)
+        arrival_city, arrival_time = parser.arrival_information(element=element)
         # Append to list
         city_arrival.append(arrival_city)
         time_arrival.append(arrival_time)
         
         # Extract flight data
-        flight_number, stops, hours_length = flight_information(element=element)
+        flight_number, stops, hours_length = parser.flight_information(element=element)
         # Append to list
         flight_numbers.append(flight_number)
         n_stops.append(stops)
         flight_lengths.append(hours_length)
         
         # Extract ticket Prices data
-        ticket_prices = prices_information(soup)
+        ticket_prices = parser.prices_information(soup)
         # IF ticket prices column is smaller than the number of dates, then add 0.
         while len(ticket_prices) < len(dt): ticket_prices.append('0')
     
@@ -90,3 +93,6 @@ def update_db(d, origin_cd='ZFF', destin_cd='VCP'):
     
     # Validate with Pandera and Load to SQL
     load_to_sql(flight_date= search_date)
+
+    # After the database update is complete, run the dbt models
+    run_dbt()

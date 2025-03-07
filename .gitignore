@@ -14,3 +14,4 @@ wheels/
 # Folder
 updatedb/load_old_from_sqlite.py
 updatedb/__pycache__/
+logs/

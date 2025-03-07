@@ -9,13 +9,14 @@ from sqlalchemy.orm import declarative_base
 from dotenv import load_dotenv
 
 # Load environment variables
+load_dotenv()
 DB_HOST = os.getenv("DB_HOST")
 DB_NAME = os.getenv("DB_NAME") 
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 
 # Update the DATABASE_URL with your actual PostgreSQL credentials
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://DB_USER:DB_PASSWORD@DB_HOST/DB_NAME")
+DATABASE_URL = os.getenv("DATABASE_URL", f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}")
 
 # Create the engine for postgresql
 engine = create_engine(DATABASE_URL)

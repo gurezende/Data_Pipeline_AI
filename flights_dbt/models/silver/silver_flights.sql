@@ -8,9 +8,9 @@ select
 	depart_city,
 	depart_time,
 	(CAST(LEFT(depart_time, 2) AS INTEGER)) as depart_hour, -- add depart_hour
-	TO_CHAR(TO_DATE(dt, 'DD/MM/YYYY'), 'Day') AS wkday_name, -- add column wkday name
-	EXTRACT(DAY FROM TO_DATE(dt, 'DD/MM/YYYY')) AS daynumber, -- add column day number
-	EXTRACT(MONTH FROM TO_DATE(dt, 'DD/MM/YYYY')) AS mth,-- add column mthday
+	TO_CHAR(TO_DATE(dt, 'DD/MM/YYYY'), 'Day') AS weekday_name, -- add column wkday name
+	EXTRACT(DAY FROM TO_DATE(dt, 'DD/MM/YYYY')) AS day_of_the_month, -- add column day number
+	EXTRACT(MONTH FROM TO_DATE(dt, 'DD/MM/YYYY')) AS month_number,-- add column mthday
 	city_arrival,
 	LEFT(time_arrival,5) as time_arrival, -- strip values from  time_arrival
 	flight_numbers,

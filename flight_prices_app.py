@@ -126,8 +126,7 @@ if assistant == 'Flight Analyst':
                              placeholder='What are the most popular flights and times')
     
     if st.button('Run'):
-        result = groq_response(query=question, 
-                  agent_type="Analyst")
+        result = groq_response(query=question)
     
         # Response
         st.write(result)

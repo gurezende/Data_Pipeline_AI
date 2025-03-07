@@ -1,154 +1,151 @@
-# This script is to parse the HTML file and extract flight information
-
-# Imports 
 from bs4 import BeautifulSoup
 import numpy as np
 import re
 
+class Parser:
+    """
+    A class to parse HTML files and extract flight information.
+    """
 
-def open_file(file_path):
-    '''Function to open the HTML file for parsing and convert to Beautiful Soup object
-    * Input:
-    path: file path to open
-    '''
-    f = open(file_path, 'r').read()
-    # Convert html to a BeatufulSoup object
-    bsoup = BeautifulSoup(f, 'html.parser')
+    def open_file(self, file_path):
+        """
+        Opens the HTML file for parsing and converts to a BeautifulSoup object.
 
-    return bsoup
+        Args:
+            file_path (str): The file path to open.
 
-##################################################
-
-def departure_information(element):
-    '''
-    Extract departure information from a BeautifulSoup element
-    '''
-    # Extract departure information
-    departure_info = (element
-                      .find('h4', class_=re.compile(r"^departure css-")))
-    
-    departure_city = (departure_info
-                      .find('span', class_='iata-day')
-                      .text
-                      .strip()
-                      .split(' • ')[0])
-    departure_date = (departure_info
-                      .find('span', class_='iata-day')
-                      .text
-                      .strip()
-                      .split(' • '))
-    # If no date is provided, use "-"
-    if len(departure_date) == 1: 
-        departure_date = np.nan
-    else:
-        departure_date = departure_date[1]
-    
-    # Parsing Departure Time
-    departure_time = (departure_info
-                      .text
-                      .split()[0])
-
+        Returns:
+            BeautifulSoup: The BeautifulSoup object.
+        """
+        with open(file_path, 'r') as f:
+            html_content = f.read()
+        return BeautifulSoup(html_content, 'html.parser')
     
 
-    return departure_city, departure_date, departure_time
+    def departure_information(self, element):
+        """
+        Extracts departure information from a BeautifulSoup element.
 
-##################################################
+        Args:
+            element (BeautifulSoup): The BeautifulSoup element.
 
-def arrival_information(element):
-    '''
-    Extract arrival information from a BeautifulSoup element.
-    '''
-    # Extract arrival information
-    arrival_info = (element
-                    .find('h4', class_=re.compile('arrival css-')))
-    arrival_time = (arrival_info
-                    .text
-                    .strip()
-                    .replace('\n', '')
-                    .split(' ')[0])
-    arrival_city = (arrival_info
-                    .find('span', class_='iata-day')
-                    .text
-                    .strip()
-                    .split(' • ')[0])
+        Returns:
+            tuple: A tuple containing departure city, date, and time.
+        """
+        departure_info = element.find('h4', class_=re.compile(r"^departure css-"))
+        if not departure_info:
+            return np.nan, np.nan, np.nan
 
-    return arrival_city, arrival_time
+        iata_day_span = departure_info.find('span', class_='iata-day')
+        if not iata_day_span:
+            return np.nan, np.nan, np.nan
 
-##################################################
+        parts = iata_day_span.text.strip().split(' • ')
+        departure_city = parts[0]
 
-def flight_information(element):
-    '''Extract fligh number, qty of connections and duration of the flight from bs4 element'''
-    
-    # Extract stops and flight number
-    leg_info = (element
-                .find('span', class_='css-tkxfs6')
-                .text
-                .strip())
+        if len(parts) > 1:
+            departure_date = parts[1]
+        else:
+            departure_date = np.nan
 
-    flight_number = re.search('Voo [0-9]*', leg_info).group()
-    stops = re.search('[0-9] conex|Direto', leg_info).group()
+        departure_time = departure_info.text.split()[0]
 
-    # Extract flight length
-    flight_length = (element
-                     .find('button', class_=re.compile('duration css-'))
-                     .find('strong')
-                     .text
-                     .strip()
-                     .split())
-    
-    # Transform days into hours
-    if 'd' in flight_length[0]:
-        day_length = int(flight_length[0].split('d')[0])*24
-        if len(flight_length) < 2:
-            flight_length.extend(['0h', '0m']) # When the flight is 1d, add 0h and 0m
-        elif len(flight_length) < 3:
-            flight_length.extend(['0m']) # When the flight is 1d 8h, add 0m
-        hr_length = int(flight_length[1].split('h')[0]) + day_length
-        min_length = int(flight_length[2].split('m')[0])
-    else:
-        # Convert to integer
-        hr_length = int(flight_length[0].split('h')[0])
-        if len(flight_length) < 2: flight_length.append('0m') #if flight is 8h0m, the min is not displayed, so we need to add.
-        min_length = int(flight_length[1].split('m')[0])
-    
-    # Convert to hours
-    hours_length = hr_length + (min_length/60)
-    
-    return flight_number, stops, hours_length
+        return departure_city, departure_date, departure_time
 
-##################################################
+    def arrival_information(self, element):
+        """
+        Extracts arrival information from a BeautifulSoup element.
 
-def prices_information(soup):
-    '''Extract ticket prices of the flight from a bs4 element'''
+        Args:
+            element (BeautifulSoup): The BeautifulSoup element.
 
-    parsed_prices = []
+        Returns:
+            tuple: A tuple containing arrival city and time.
+        """
+        arrival_info = element.find('h4', class_=re.compile('arrival css-'))
+        if not arrival_info:
+            return np.nan, np.nan
 
-    # Find prices
-    # price_elements = soup.find_all('h4', class_='current css-2db79l')
-    price_elements = soup.find_all('div', class_=re.compile('flight-card__fare right-container'))
+        iata_day_span = arrival_info.find('span', class_='iata-day')
+        if not iata_day_span:
+            return np.nan, np.nan
 
-    # Iterate and collect ticket prices
-    for p in price_elements:
-        price=(
-            p
-            .text
-            .strip()
-            .replace('R$', '')
-            .replace('.', '')
-            .replace('\n','')
-            .replace('A partir de','')
-            .replace('Voo esgotado','0-')
-            .replace(' ','')
-            .replace('0-0-','0')
-            .split(',')[0]
-            .strip()
-        )
+        arrival_city = iata_day_span.text.strip().split(' • ')[0]
+        arrival_time = arrival_info.text.strip().replace('\n', '').split(' ')[0]
 
-        # Price to float
-        price = float(price)
+        return arrival_city, arrival_time
 
-        # Append to list
-        parsed_prices.append(price)
-    
-    return parsed_prices
+    def flight_information(self, element):
+        """
+        Extracts flight number, quantity of connections, and duration of the flight from a BeautifulSoup element.
 
+        Args:
+            element (BeautifulSoup): The BeautifulSoup element.
+
+        Returns:
+            tuple: A tuple containing flight number, stops, and flight duration in hours.
+        """
+        leg_info_span = element.find('span', class_='css-tkxfs6')
+        if not leg_info_span:
+            return np.nan, np.nan, np.nan
+
+        leg_info = leg_info_span.text.strip()
+        flight_number_match = re.search(r'Voo [0-9]*', leg_info)
+        stops_match = re.search(r'[0-9] conex|Direto', leg_info)
+
+        if not flight_number_match or not stops_match:
+            return np.nan, np.nan, np.nan
+
+        flight_number = flight_number_match.group()
+        stops = stops_match.group()
+
+        duration_button = element.find('button', class_=re.compile('duration css-'))
+        if not duration_button:
+            return flight_number, stops, np.nan
+
+        duration_strong = duration_button.find('strong')
+        if not duration_strong:
+            return flight_number, stops, np.nan
+
+        flight_length = duration_strong.text.strip().split()
+
+        if 'd' in flight_length[0]:
+            day_length = int(flight_length[0].split('d')[0]) * 24
+            if len(flight_length) < 2:
+                flight_length.extend(['0h', '0m'])
+            elif len(flight_length) < 3:
+                flight_length.extend(['0m'])
+            hr_length = int(flight_length[1].split('h')[0]) + day_length
+            min_length = int(flight_length[2].split('m')[0])
+        else:
+            hr_length = int(flight_length[0].split('h')[0])
+            if len(flight_length) < 2:
+                flight_length.append('0m')
+            min_length = int(flight_length[1].split('m')[0])
+
+        hours_length = hr_length + (min_length / 60)
+
+        return flight_number, stops, hours_length
+
+    def prices_information(self, soup):
+        """
+        Extracts ticket prices of the flight from a BeautifulSoup element.
+
+        Args:
+            soup (BeautifulSoup): The BeautifulSoup object.
+
+        Returns:
+            list: A list of ticket prices.
+        """
+        parsed_prices = []
+        price_elements = soup.find_all('div', class_=re.compile('flight-card__fare right-container'))
+
+        for p in price_elements:
+            price_text = p.text.strip().replace('R$', '').replace('.', '').replace('\n', '').replace('A partir de', '').replace('Voo esgotado', '0-').replace(' ', '').replace('0-0-', '0').split(',')[0].strip()
+            try:
+                price = float(price_text)
+                parsed_prices.append(price)
+            except ValueError:
+                parsed_prices.append(np.nan)
+
+        return parsed_prices

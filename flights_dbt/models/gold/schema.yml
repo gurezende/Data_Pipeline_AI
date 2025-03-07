@@ -5,8 +5,8 @@ models:
       - name: depart_city
         description: "Departure city"    
 
-      - name: daynumber
-        description: "Day of the week"
+      - name: day_of_the_month
+        description: "Day of the month number"
 
       - name: average_ticket_price
         description: "Average ticket price"
@@ -17,7 +17,7 @@ models:
       - name: depart_city
         description: "Departure city"    
 
-      - name: wkday_name
+      - name: weekday_name
         description: "Weekday name"
 
       - name: average_ticket_price
@@ -29,7 +29,7 @@ models:
       - name: depart_city
         description: "Departure city"    
 
-      - name: mth
+      - name: month_number
         description: "Month of the year"
 
       - name: average_ticket_price
