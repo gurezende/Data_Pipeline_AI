@@ -2,6 +2,25 @@
 
 ![](img/meta_friendly_looking_robot_in_a_room-wide.jpeg)
 
+
+## Index
+
+[Data Pipeline](#data-pipeline)
+  [Purpose](#purpose)
+  [Requirements](#requirements)
+  [Functionality](#functionality)
+[Web Application: AI Assistant](#web-application-ai-assistant)
+  [App](#app)
+  [Functionality](#functionality-1)
+  [Sidebar: Update DB](#sidebar-update-db)
+  [Main Page: Querying the Database](#main-page-querying-the-database)
+[Notes](#notes)
+[Demonstration](#demonstration)
+[About](#about)
+[License](#license)
+
+
+
 ## Data Pipeline
 
 This part of the project automates the process of fetching, parsing, and loading flight price data into a database. It utilizes web scraping, HTML parsing, data validation, and database loading.
