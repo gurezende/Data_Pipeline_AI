@@ -5,4 +5,8 @@
 
 ## Demonstration
 
-![](img/RAG-FlightDB%20AI%20Assistant.mp4)
+<table>
+  <tr>
+    <td width="100%"><img src="img/RAG-FlightDB AI Assistant.mp4" alt="App Image"></td>
+  </tr>
+</table>
