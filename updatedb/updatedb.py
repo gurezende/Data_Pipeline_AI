@@ -16,10 +16,10 @@ def update_db(d, origin_cd='ZFF', destin_cd='VCP'):
     st.write(f':calendar: Searching flights on {search_date}') 
     
     # Get Flights page
-    # get_flights(depart=origin_cd,
-    #             arrivl=destin_cd,
-    #             date_depart= search_date,
-    #             days_range= 5)
+    get_flights(depart=origin_cd,
+                arrivl=destin_cd,
+                date_depart= search_date,
+                days_range= 5)
     
     # Instantiate Parser
     parser = Parser()

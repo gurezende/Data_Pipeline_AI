@@ -44,7 +44,7 @@
 
 ## Data Pipeline
 
-This part of the project automates the process of fetching, parsing, and loading flight price data into a database. It utilizes web scraping, HTML parsing, data validation, and database loading.
+This part of the project automates the process of fetching, parsing, and loading flight prices data into a database. It utilizes web scraping, HTML parsing, data validation, and database loading.
 
 ### Purpose
 
@@ -63,8 +63,8 @@ The script defines a primary function, `update_db(d, origin_cd, destin_cd)`, whi
     * Calculates the search date by adding `d` days to the current date using the `get_date` function from `updatedb.webscraping`.
     * Displays the search date in the Streamlit application.
 
-2.  **Web Scraping (Commented Out):**
-    * The `get_flights` function (from `updatedb.webscraping`) for web scraping is commented out. This would typically fetch the HTML content of the flight search results.
+2.  **Web Scraping:**
+    * The `get_flights` function (from `updatedb.webscraping`) fetches the HTML content of the flight search results.
     * This current version instead opens a static html file called `data/flights.html` for parsing.
 
 3.  **HTML Parsing:**
@@ -173,5 +173,5 @@ Project licensed under MIT License.
 
 ## Next Steps
 
-Docker
+Docker<br>
 Deploy
