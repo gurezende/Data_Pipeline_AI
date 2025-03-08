@@ -65,7 +65,7 @@ The script defines a primary function, `update_db(d, origin_cd, destin_cd)`, whi
 
 2.  **Web Scraping:**
     * The `get_flights` function (from `updatedb.webscraping`) fetches the HTML content of the flight search results.
-    * This current version instead opens a static html file called `data/flights.html` for parsing.
+    * The scraped data is saved in the */data* folder as `flights.html` for parsing.
 
 3.  **HTML Parsing:**
     * Initializes a `Parser` object (from `updatedb.parser`).
