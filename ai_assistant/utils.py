@@ -23,7 +23,7 @@ DB_CONFIG = {
 
 def fetch_flight_data():
     query = """
-    SELECT id, dt, depart_city, depart_time, city_arrival, time_arrival, 
+    SELECT id, dt, depart_city, depart_time, city_arrival, time_arrival, weekday_name,
            flight_numbers, stops, flight_lengths, ticket_prices, days_before_flight
     FROM silver_flights
     """
@@ -42,6 +42,7 @@ def format_flight_data(df):
     for _, row in tqdm(df.iterrows(), total=len(df)):
         text = (f"Flight from {row['depart_city']} to {row['city_arrival']} on {row['dt']}.\n"
                 f"Departure: {row['depart_time']}, Arrival: {row['time_arrival']}.\n"
+                f"Day of the week: {row['weekday_name']}.\n"
                 f"Flight Number(s): {row['flight_numbers']}.\n"
                 f"Stops: {row['stops']}.\n"
                 f"Duration: {row['flight_lengths']}.\n"
