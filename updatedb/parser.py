@@ -7,6 +7,9 @@ class Parser:
     A class to parse HTML files and extract flight information.
     """
 
+    def __init__(self):
+        pass
+
     def open_file(self, file_path):
         """
         Opens the HTML file for parsing and converts to a BeautifulSoup object.
@@ -21,7 +24,6 @@ class Parser:
             html_content = f.read()
         return BeautifulSoup(html_content, 'html.parser')
     
-
     def departure_information(self, element):
         """
         Extracts departure information from a BeautifulSoup element.
@@ -90,8 +92,8 @@ class Parser:
             return np.nan, np.nan, np.nan
 
         leg_info = leg_info_span.text.strip()
-        flight_number_match = re.search(r'Voo [0-9]*', leg_info)
-        stops_match = re.search(r'[0-9] conex|Direto', leg_info)
+        flight_number_match = re.search(r'Flight [0-9]*', leg_info)
+        stops_match = re.search(r'[0-9] connection|Non-stop', leg_info)
 
         if not flight_number_match or not stops_match:
             return np.nan, np.nan, np.nan
@@ -141,7 +143,17 @@ class Parser:
         price_elements = soup.find_all('div', class_=re.compile('flight-card__fare right-container'))
 
         for p in price_elements:
-            price_text = p.text.strip().replace('R$', '').replace('.', '').replace('\n', '').replace('A partir de', '').replace('Voo esgotado', '0-').replace(' ', '').replace('0-0-', '0').split(',')[0].strip()
+            price_text = (p.text.strip()
+                          .replace('$', '')
+                          .replace('\n', '')
+                          .replace('From', '')
+                          .replace('Sold out', '0-')
+                          .replace(' ', '')
+                          .replace('0-0-', '0')
+                          .split(',')[0]
+                          .strip()
+                          .replace('SeefaresSeefares', '')
+            )
             try:
                 price = float(price_text)
                 parsed_prices.append(price)

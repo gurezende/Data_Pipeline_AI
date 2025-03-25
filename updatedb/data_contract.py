@@ -42,6 +42,6 @@ def validate_data(data):# Validate data
         return True
     except SchemaError as e:
         st.error(f"DataFrame validation FAILED: {e}",
-                 icon=":x:")
+                 icon="❌")
         return False
     

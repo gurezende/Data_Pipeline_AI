@@ -86,7 +86,6 @@ def update_db(d, origin_cd='ZFF', destin_cd='VCP'):
         'ticket_prices': ticket_prices,
         'days_before_flight': [str(d)] * len(dt)
         }).ffill().bfill()
-        
     
     #Save data as a table
     dtf_flights.to_csv('data/flights.csv', index=False)

@@ -29,7 +29,7 @@ flight_texts = format_flight_data(flight_data)
 
 # Store the embedding in ChromaDB
 for i, text in enumerate(flight_texts):
-    collection.add(
+    collection.upsert(
         ids=[str(i)],
         documents=[flight_texts[i]]
     )

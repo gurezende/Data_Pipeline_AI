@@ -62,21 +62,21 @@ def get_flights(depart, arrivl, date_depart='today', days_range=10):
     driver.minimize_window()
 
     # Open Azul Airlines website
-    driver.get("https://www.voeazul.com.br/us/en/home")
+    driver.get("https://www.voeazul.com.br/br/pt/home")
     
     # Click on the Cookies accept button
     time.sleep(2)
-    # cookie_ok_button = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID, "onetrust-accept-btn-handler")))
-    # cookie_ok_button.click()
+    cookie_ok_button = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID, "onetrust-accept-btn-handler")))
+    cookie_ok_button.click()
 
     # Complete Origin Search Box
-    origin = driver.find_element(By.CSS_SELECTOR, '#From1')
+    origin = driver.find_element(By.CSS_SELECTOR, '#Origem1')
     origin.send_keys(depart)
     time.sleep(2)
     origin.send_keys(Keys.RETURN)
 
     # Complete Destination Search Box
-    destin = driver.find_element(By.CSS_SELECTOR, "#To1")
+    destin = driver.find_element(By.CSS_SELECTOR, "#Destino1")
     destin.send_keys(arrivl)
     time.sleep(1)
     destin.send_keys(Keys.RETURN)
@@ -98,8 +98,7 @@ def get_flights(depart, arrivl, date_depart='today', days_range=10):
     end_date.send_keys(final_date) #dd/mm/yyyy
 
     # Click Button "Fechar"
-    # driver.find_element(By.CSS_SELECTOR, 'button[tabindex="0"]').click()
-    driver.find_element(By.CSS_SELECTOR, '#spa-root > main > div > div.aem-page.AzulPage.page.basicpage > div > div.aem-container.aem-Grid.aem-Grid--12.aem-Grid--default--12 > div:nth-child(3) > div.aem-container.aem-Grid.aem-Grid--12.aem-Grid--tablet--12.aem-Grid--default--12.aem-Grid--phone--12 > div:nth-child(1) > div.css-1sel6ui > div.css-16ub5e0 > div > nav > div > div > div:nth-child(1) > div.css-1wl1vzt > div:nth-child(1) > ul > li:nth-child(1) > div > div.form-stations-wrapper.css-187knvu > div > div.css-nzp9bm > div > div > div.styles__DatePickerContainer-sc-1skomla-1.byTxto > div.styles__DatePickerFooter-sc-1skomla-2.cBEoVu > div.styles__WrapperButtons-sc-1skomla-3.fAmVCb > div.styles__WrapperButton-sc-1skomla-4.dUyGWT > button').click()
+    driver.find_element(By.CSS_SELECTOR, 'button[tabindex="0"]').click()
 
     # Click Button "Confirmar"
     time.sleep(2)

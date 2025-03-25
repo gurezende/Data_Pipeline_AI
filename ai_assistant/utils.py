@@ -24,7 +24,7 @@ DB_CONFIG = {
 def fetch_flight_data():
     query = """
     SELECT id, dt, depart_city, depart_time, city_arrival, time_arrival, 
-           flight_numbers, n_stops, stops, flight_lengths, ticket_prices_brl, days_before_flight
+           flight_numbers, stops, flight_lengths, ticket_prices, days_before_flight
     FROM silver_flights
     """
     conn = psycopg2.connect(**DB_CONFIG)
@@ -45,7 +45,7 @@ def format_flight_data(df):
                 f"Flight Number(s): {row['flight_numbers']}.\n"
                 f"Stops: {row['stops']}.\n"
                 f"Duration: {row['flight_lengths']}.\n"
-                f"Price: {row['ticket_prices_brl']} BRL.\n"
+                f"Price: {row['ticket_prices']} USD.\n"
                 f"Booked {row['days_before_flight']} days before departure.")
         
         formatted_texts.append(text)
