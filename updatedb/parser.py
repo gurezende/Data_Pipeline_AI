@@ -141,7 +141,7 @@ class Parser:
         """
         parsed_prices = []
         price_elements = soup.find_all('div', class_=re.compile('flight-card__fare right-container'))
-
+        
         for p in price_elements:
             price_text = (p.text.strip()
                           .replace('$', '')
@@ -150,10 +150,10 @@ class Parser:
                           .replace('Sold out', '0-')
                           .replace(' ', '')
                           .replace('0-0-', '0')
-                          .split(',')[0]
                           .strip()
                           .replace('SeefaresSeefares', '')
             )
+
             try:
                 price = float(price_text)
                 parsed_prices.append(price)
@@ -161,3 +161,5 @@ class Parser:
                 parsed_prices.append(np.nan)
 
         return parsed_prices
+
+

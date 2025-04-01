@@ -99,7 +99,7 @@ def get_flights(depart, arrivl, date_depart='today', days_range=10):
 
     # Click Button "Fechar"
     # driver.find_element(By.CSS_SELECTOR, 'button[tabindex="0"]').click()
-    driver.find_element(By.CSS_SELECTOR, '#spa-root > main > div > div.aem-page.AzulPage.page.basicpage > div > div.aem-container.aem-Grid.aem-Grid--12.aem-Grid--default--12 > div:nth-child(3) > div.aem-container.aem-Grid.aem-Grid--12.aem-Grid--tablet--12.aem-Grid--default--12.aem-Grid--phone--12 > div:nth-child(1) > div.css-1sel6ui > div.css-16ub5e0 > div > nav > div > div > div:nth-child(1) > div.css-1wl1vzt > div:nth-child(1) > ul > li:nth-child(1) > div > div.form-stations-wrapper.css-187knvu > div > div.css-nzp9bm > div > div > div.styles__DatePickerContainer-sc-1skomla-1.byTxto > div.styles__DatePickerFooter-sc-1skomla-2.cBEoVu > div.styles__WrapperButtons-sc-1skomla-3.fAmVCb > div.styles__WrapperButton-sc-1skomla-4.dUyGWT > button').click()
+    driver.find_element(By.CSS_SELECTOR, "button[data-testid='search-box-hotel-date-picker-primary-button']").click()
 
     # Click Button "Confirmar"
     time.sleep(2)
